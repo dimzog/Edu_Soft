@@ -1,0 +1,13 @@
+<nav>
+    <div class="nav-wrapper">
+      <a href="/" class="brand-logo"><i class="material-icons">school</i>Code School</a>
+
+        {% block nav %}
+        <ul class="right hide-on-med-and-down">
+            <li {% if 'test' in view.breadcrumbs %}class="active"{% endif %}><a href="/test/"><i class="material-icons left">code</i>Code</a></li>
+            <li {% if 'about' in view.breadcrumbs %}class="active"{% endif %}><a href="/about/"><i class="material-icons left">info</i>About</a></li>
+            <li {% if 'contact' in view.breadcrumbs %}class="active"{% endif %}><a href="/contact/"><i class="material-icons left">mail</i>Contact</a></li>
+        </ul>
+        {% endblock %}
+    </div>
+</nav>
