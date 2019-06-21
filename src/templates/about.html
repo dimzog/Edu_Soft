@@ -2,7 +2,62 @@
 
 
 {% block content %}
-<h1>About</h1>
+{% load static %}
+
+<div class="container">
+
+    <h2 class="center-align">Meet The Team</h2>
+     <div>
+    <p class="center-align">We are a team of students from University of Piraeus.</p>
+  </div>
+
+    <div class="divider"></div>
+    <div class="row"></div>
+
+
+          <div class="row">
+            <div class="center">
+              <img src="{% static 'pages/images/team.jpg' %}" alt=""style="height:300px;" class="circle responsive-img"> <!-- notice the "circle" class -->
+            </div>
+          </div>
+
+
+    <div class="divider"></div>
+    <div class="row"></div>
+
+
+<div class="col s12 m8 offset-m2 l6 offset-l3">
+        <div class="card-panel grey lighten-5 z-depth-1">
+          <div class="row valign-wrapper">
+            <div class="col s2">
+                <img src="{% static 'pages/images/avatar_beard.png' %}"  alt=""style="height:100px;" class="circle responsive-img"> <!-- notice the "circle" class -->
+            </div>
+            <div class="col s10">
+              <span class="black-text">
+                Dimitrios Zografakis, undergraduate @ cs unipi.
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+<div class="col s12 m8 offset-m2 l6 offset-l3">
+        <div class="card-panel grey lighten-5 z-depth-1">
+          <div class="row valign-wrapper">
+            <div class="col s2">
+              <img src="{% static 'pages/images/avatar_glasses.png' %}" alt=""style="height:100px;" class="circle responsive-img"> <!-- notice the "circle" class -->
+            </div>
+            <div class="col s10">
+              <span class="black-text">
+                Michail Papatoukakis, undergraduate @ cs unipi.
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+</div>
 {% endblock %}
 
 

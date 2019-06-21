@@ -20,3 +20,17 @@ class ContactPageView(TemplateView):
     breadcrumbs = ['contact']
 
 
+class CodePageView(TemplateView):
+    template_name = 'code.html'
+    breadcrumbs = ['code']
+
+
+class LoginPageView(TemplateView):
+    template_name = 'login.html'
+    breadcrumbs = ['login']
+
+
+class RegisterPageView(TemplateView):
+    template_name = 'register.html'
+    breadcrumbs = ['register']
+

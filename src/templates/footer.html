@@ -10,10 +10,10 @@
               <div class="col l4 offset-l2 s12">
                 <h5 class="white-text">Quick Links</h5>
                 <ul>
-                    <li><a class="grey-text text-lighten-3" href="/">Home</a></li>
-                    <li><a class="grey-text text-lighten-3" href="/code/">Code</a></li>
-                    <li><a class="grey-text text-lighten-3" href="/about/">About</a></li>
-                    <li><a class="grey-text text-lighten-3" href="/contact/">Contact</a></li>
+                    <li><a {% if 'home' in view.breadcrumbs %}class="grey-text text-blue-grey lighten-2" {% else %} class="grey-text text-lighten-3 {% endif %}" href="/">Home</a></li>
+                    <li><a {% if 'code' in view.breadcrumbs %}class="grey-text text-blue-grey lighten-2" {% else %} class="grey-text text-lighten-3 {% endif %}" href="/code/">Code</a></li>
+                    <li><a {% if 'about' in view.breadcrumbs %}class="grey-text text-blue-grey lighten-2" {% else %} class="grey-text text-lighten-3 {% endif %}" href="/about/">About</a></li>
+                    <li><a {% if 'contact' in view.breadcrumbs %}class="grey-text text-blue-grey lighten-2" {% else %} class="grey-text text-lighten-3 {% endif %}" href="/contact/">Contact</a></li>
                 </ul>
               </div>
             </div>
@@ -22,7 +22,7 @@
 
             <div class="footer-copyright">
                 <div class="container">
-                    © 2019 Codeschool made by P15041, P15111.
+                    © 2019 Codeschool made by P15041, P15111. All rights reserved.
                     <a class="btn-floating red lighten-3 pulse right"><i class="material-icons">work</i></a>
                     <a class="btn-floating red lighten-3 pulse right"><i class="material-icons">vpn_key</i></a>
                     <a class="btn-floating red lighten-3 pulse right"><i class="material-icons">verified_user</i></a>
