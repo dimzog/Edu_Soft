@@ -17,12 +17,14 @@ from django.contrib import admin
 from django.urls import path
 
 # Own
-from pages.views import HomePageView, AboutPageView, ContactPageView, CodePageView
+from pages.views import HomePageView, AboutPageView, ContactPageView, CodePageView, RegisterPageView, LoginPageView
 
 urlpatterns = [
     path('', HomePageView.as_view(), name='home'),
     path('code/', CodePageView.as_view(), name='code'),
     path('about/', AboutPageView.as_view(), name='about'),
     path('contact/', ContactPageView.as_view(), name='contact'),
+    path('register/', RegisterPageView.as_view(), name='register'),
+    path('login/', LoginPageView.as_view(), name='login'),
     path('admin/', admin.site.urls),
 ]
