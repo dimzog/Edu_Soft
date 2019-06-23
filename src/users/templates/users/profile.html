@@ -18,16 +18,83 @@
                     <div class="col s10">
                         <h3>Hello, {{ user.username }}!</h3>
                         <p>{{ user.email }}</p>
+                        <blockquote>
+                            "{{ user.profile.bio }}"
+                        </blockquote>
                         <span class="black-text">
-                        This is your profile, you can find insightful statistics here.
+                            <p>Level: {{ user.profile.level }}</p>
                         </span>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="row"></div>
+        <div class="center">
+            <div class="row">
+            <p class="flow-text">
+                Statistics
+            <p>
+            </div>
+        </div>
         <div class="divider"></div>
+
+        <div class="center">
+            <div class="row">
+            <p class="flow-text">
+                <b>Attending:</b> "{{ user.profile.attending_course }}"
+            <p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col s6">
+                <h6>Now Studying Chapter: {{ user.profile.chapter_studying }}</h6>
+            </div>
+
+            <div class="col s6">
+                <h6>You should really work your: {{ user.profile.bad_at }}</h6>
+            </div>
+        </div>
+
+        <table class="center">
+            <thead>
+            <tr>
+                <th>Chapter</th>
+                <th>Test Passed</th>
+                <th>Times Taken</th>
+                <th>Correct Answers (Total)</th>
+                <th>Wrong Answers (Total)</th>
+                <th>Success Rate</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr>
+                <td>1</td>
+                <td>{% if user.profile.test_taking > 1 %}} Yes {% else %} No {% endif %}</td>
+                <td>{{ user.profile.test_1_times }}</td>
+                <td>{{ user.profile.test_1_correct }}/{{ user.profile.test_1_total }}</td>
+                <td>{{ user.profile.test_1_wrong }}/{{ user.profile.test_1_total }}</td>
+                <td>{{ user.profile.test_1_success_rate }} %</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>{% if user.profile.test_taking > 2 %}} Yes {% else %} No {% endif %}</td>
+                <td>{{ user.profile.test_2_times }}</td>
+                <td>{{ user.profile.test_2_correct }}/{{ user.profile.test_1_total }}</td>
+                <td>{{ user.profile.test_2_wrong }}/{{ user.profile.test_1_total }}</td>
+                <td>{{ user.profile.test_2_success_rate }} %</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>{% if user.profile.test_taking > 3 %}} Yes {% else %} No {% endif %}</td>
+                <td>{{ user.profile.test_3_times }}</td>
+                <td>{{ user.profile.test_3_correct }}/{{ user.profile.test_1_total }}</td>
+                <td>{{ user.profile.test_3_wrong }}/{{ user.profile.test_1_total }}</td>
+                <td>{{ user.profile.test_3_success_rate }} %</td>
+            </tr>
+            </tbody>
+        </table>
 
 
         <div class="divider"></div>

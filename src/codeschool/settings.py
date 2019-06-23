@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     # Own apps
     'pages.apps.PagesConfig',
     'users.apps.UsersConfig',
+    'courses.apps.CoursesConfig',
 
 ]
 
