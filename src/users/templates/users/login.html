@@ -14,9 +14,7 @@
     <div class="content-section">
         <form method="POST">
             {% csrf_token %}
-            <fieldset class="form-group">
-                {{ form|crispy }}
-            </fieldset>
+            {{ form|crispy }}
             <div class="row"></div>
             <div class="center">
                 <button class="btn waves-effect waves-light" type="submit">Login

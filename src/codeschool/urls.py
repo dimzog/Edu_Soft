@@ -17,9 +17,12 @@ from django.contrib import admin
 from django.urls import path
 from django.contrib.auth import views as auth_views
 
+from django.conf import settings
+from django.conf.urls.static import static
+
 # Own
 from pages.views import HomePageView, AboutPageView, ContactPageView, CodePageView
-from users.views import RegisterPageView, ProfilePageView
+from users.views import register, ProfilePageView
 
 urlpatterns = [
 
@@ -28,7 +31,7 @@ urlpatterns = [
     path('code/', CodePageView.as_view(), name='code'),
     path('about/', AboutPageView.as_view(), name='about'),
     path('contact/', ContactPageView.as_view(), name='contact'),
-    path('register/', RegisterPageView.as_view(), name='register'),
+    path('register/', register, name='register'),
     path('profile/', ProfilePageView.as_view(), name='profile'),
 
 
@@ -37,3 +40,8 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(template_name='users/logout.html'), name='logout'),
     path('admin/', admin.site.urls),
 ]
+
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
