@@ -4,10 +4,11 @@ from django.contrib.auth.models import User
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    image = models.ImageField(default='default.jpg', upload_to='profile_pics')
-    bio = models.CharField(max_length=250, blank=True, null=True, default='')
+    image = models.ImageField(default='default.png', upload_to='profile_pics')
+    bio = models.CharField(max_length=250, blank=True, null=True, default='No bio.')
 
     level = models.CharField(max_length=50, default='Beginner')
+    rank = models.ImageField(default='ranks/beginner.png')
 
     attending_course = models.CharField(max_length=100, blank=True, null=True, default='Python 3: From zero to hero')
 

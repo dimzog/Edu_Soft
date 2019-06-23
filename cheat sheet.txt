@@ -8,5 +8,5 @@ python manage.py migrate
 python manage.py createsuperuser
 
 SUPERUSER(s)
-mitsaras:codeschool
+dimitris:root1234
 mixalis:codeschool

@@ -21,8 +21,9 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 # Own
-from pages.views import HomePageView, AboutPageView, ContactPageView, CodePageView
+from pages.views import HomePageView, AboutPageView, ContactPageView
 from users.views import register, ProfilePageView
+from courses.views import CodePageView
 
 urlpatterns = [
 

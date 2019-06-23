@@ -21,7 +21,3 @@ class ContactPageView(TemplateView):
     breadcrumbs = ['contact']
 
 
-class CodePageView(LoginRequiredMixin, TemplateView):
-    template_name = 'code.html'
-    breadcrumbs = ['code']
-
