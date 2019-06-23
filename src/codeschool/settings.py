@@ -39,9 +39,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # 3rd-party apps
+    'crispy_forms',
 
     # Own apps
     'pages.apps.PagesConfig',
+    'users.apps.UsersConfig',
 
 ]
 
@@ -124,3 +126,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+LOGIN_REDIRECT_URL = 'home'
+LOGIN_URL = 'login'

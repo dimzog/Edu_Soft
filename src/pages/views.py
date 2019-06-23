@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.views.generic import TemplateView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Create your views here.
 
@@ -20,17 +21,7 @@ class ContactPageView(TemplateView):
     breadcrumbs = ['contact']
 
 
-class CodePageView(TemplateView):
+class CodePageView(LoginRequiredMixin, TemplateView):
     template_name = 'code.html'
     breadcrumbs = ['code']
-
-
-class LoginPageView(TemplateView):
-    template_name = 'login.html'
-    breadcrumbs = ['login']
-
-
-class RegisterPageView(TemplateView):
-    template_name = 'register.html'
-    breadcrumbs = ['register']
 

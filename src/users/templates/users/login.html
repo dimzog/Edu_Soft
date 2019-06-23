@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class="container">
+    <h2 class="center-align">Log in</h2>
+    <div>
+        <p class="center-align">You’ll need an account to get to your courses</p>
+    </div>
+
+    <div class="divider"></div>
+    <div class="row"></div>
+
+    <div class="content-section">
+        <form method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                {{ form|crispy }}
+            </fieldset>
+            <div class="row"></div>
+            <div class="center">
+                <button class="btn waves-effect waves-light" type="submit">Login
+                    <i class="material-icons right">send</i>
+                </button>
+            </div>
+        </form>
+        <div class="border-top pt-3">
+            <small class="text-muted">
+                Need An Account? <a class="ml-2" href="{% url 'register' %}">Sign Up Now</a>
+            </small>
+        </div>
+    </div>
+
+    <div class="divider"></div>
+    <div class="row"></div>
+
+</div>
+
+{% endblock %}

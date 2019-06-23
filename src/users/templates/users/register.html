@@ -4,16 +4,17 @@
 
 <div class="container">
 
-    <h2 class="center-align">Login</h2>
+    <h2 class="center-align">Create an Account</h2>
     <div>
-        <p class="center-align">Log In to Your Code School Account!</p>
+        <p class="center-align">You’ll need an account to get to your courses</p>
     </div>
 
     <div class="divider"></div>
     <div class="row"></div>
 
     <div class="row">
-        <form class="col s12">
+        <form class="col s12" method="POST">
+            {% csrf_token %}
             <div class="row">
                 <div class="input-field col s6">
                     <i class="material-icons prefix">account_circle</i>
@@ -21,9 +22,22 @@
                     <label for="firstname">Username</label>
                 </div>
                 <div class="input-field col s6">
+                    <i class="material-icons prefix">phone</i>
+                    <input id="icon_telephone" type="tel" class="validate">
+                    <label for="icon_telephone">Telephone</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="input-field col s6">
                     <i class="material-icons prefix">email</i>
                     <input id="email" type="text" class="validate">
                     <label for="email">Email</label>
+                </div>
+                <div class="input-field col s6">
+                    <i class="material-icons prefix">email</i>
+                    <input id="conf_email" type="text" class="validate">
+                    <label for="conf_email">Confirm Email</label>
                 </div>
             </div>
             <div class="row">
@@ -31,33 +45,19 @@
                 <p>
                     <label>
                     <input id="indeterminate-checkbox" type="checkbox" />
-                    <span>Stay Logged in</span>
+                    <span>Read Terms of Use</span>
                     </label>
                 </p>
                 </div>
             </div>
             <div class="row">
                 <div class="center">
-                    <button class="btn waves-effect waves-light" type="submit" name="action">Log in
+                    <button class="btn waves-effect waves-light" type="submit" name="action">Register
                         <i class="material-icons right">send</i>
                     </button>
                 </div>
             </div>
         </form>
-        <div class="row">
-            <div class="center">
-                    <p>
-                        Forgot your password? <a href="/login/">Reset</a>
-                    </p>
-                </div>
-        </div>
-        <div class="row">
-            <div class="center">
-                    <p>
-                        or <a href="/register/">Create an Account</a>
-                    </p>
-                </div>
-        </div>
     </div>
 
 
