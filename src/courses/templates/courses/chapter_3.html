@@ -1,9 +1,75 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h4 class="center">Chapter 1. Python - Basic Syntax</h4>
-    <div class="divider"></div>
+    <h4 class="center">Chapter 3. Python - MongoDB</h4>
+
     <div class="container">
+        <div class="divider"></div>
+
+        <P>Python can be used in database applications.<br>
+            One of the most popular NoSQL database is MongoDB.</P>
+
+        <H5>MongoDB</H5>
+        <p>MongoDB stores data in JSON-like documents, which makes the database very flexible and scalable.<br>
+            To be able to experiment with the code examples in this tutorial, you will need access to a MongoDB database. <br>
+            You can download a free MongoDB database at <a href="https://www.mongodb.com">mongoDB</a></p>
+
+        <div class="divider"></div>
+
+
+        <H5>PyMongo</H5>
+        <p>Python needs a MongoDB driver to access the MongoDB database. <br>
+            In this tutorial we will use the MongoDB driver "PyMongo".<br>
+            We recommend that you use PIP to install "PyMongo".<br>
+            PIP is most likely already installed in your Python environment.<br>
+            Navigate your command line to the location of PIP, and type the following:</p>
+
+
+        <div class="row">
+            <div class="card-panel grey lighten-5 z-depth-1">
+                <div class="row valign-wrapper">
+                    <div class="col s12">
+                        <p>C:\Users\Your Name\AppData\Local\Programs\Python\Python36-32\Scripts>python -m pip install pymongo</div>
+                </div>
+            </div>
+        </div>
+
+        <p>Now you have downloaded and installed a mongoDB driver.</p>
+
+        <div class="divider"></div>
+
+        <H5>Test PyMongo</H5>
+        <p>To test if the installation was successful, or if you already have "pymongo" installed, create a Python page with the following content:</p>
+
+
+        <div class="row">
+            <div class="card-panel grey lighten-5 z-depth-1">
+                <div class="row valign-wrapper">
+                    <div class="col s12">
+                        <p>import pymongo</div>
+                </div>
+            </div>
+        </div>
+
+        <p>If the above code was executed with no errors, "pymongo" is installed and ready to be used.</p>
+
+
+        <div class="divider"></div>
+        <div class="row"></div>
+
+        <div class="video-container">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/E-1xI85Zog8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+
+        <div class="row"></div>
+        <div class="divider"></div>
+        <div class="row"></div>
+
+        <div class="row">
+            <div class="center">
+                <a class="waves-effect waves-light btn-large" href="#!">Take Test!</a>
+            </div>
+        </div>
 
     </div>
     <ul class="pagination">
