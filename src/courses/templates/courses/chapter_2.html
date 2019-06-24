@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <h4 class="center">Chapter 1. Python - Basic Syntax</h4>
+    <div class="divider"></div>
+    <div class="container">
+
+
+
+
+
+
+
+
+    </div>
+            <ul class="pagination">
+        <li class="waves-effect"><a href="{% url 'chapter_1' %}"><i class="material-icons">chevron_left</i></a></li>
+        <li class="waves-effect"><a href="{% url 'chapter_1' %}">1</a></li>
+        <li class="active"><a href="{% url 'chapter_2' %}">2</a></li>
+
+        {% if user.profile.chapter_studying == 2 %}
+            <li class="disabled"><a href="{% url 'chapter_3' %}">3</a></li>
+            <li class="disabled"><a href="{% url 'chapter_3' %}"><i class="material-icons">chevron_right</i></a></li>
+
+        {% else %}
+            <li class="waves-effect"><a href="{% url 'chapter_3' %}">3</a></li>
+            <li class="waves-effect"><a href="{% url 'chapter_3' %}"><i class="material-icons">chevron_right</i></a></li>
+        {% endif %}
+
+    </ul>
+
+{% endblock %}

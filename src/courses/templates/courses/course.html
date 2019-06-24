@@ -1,0 +1,12 @@
+
+{% load static %}
+
+{% if user.profile.chapter_studying == 1 %}
+    {% include 'courses/chapter_1.html' %}
+{% elif user.profile.chapter_studying == 2 %}
+    {% include 'courses/chapter_2.html' %}
+
+{% else %}
+    {% include 'courses/chapter_3.html' %}
+
+{% endif %}

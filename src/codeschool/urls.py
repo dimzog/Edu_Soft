@@ -23,13 +23,18 @@ from django.conf.urls.static import static
 # Own
 from pages.views import HomePageView, AboutPageView, ContactPageView
 from users.views import register, ProfilePageView
-from courses.views import CodePageView
+from courses.views import CoursePageView, CourseChapter1PageView, CourseChapter2PageView, CourseChapter3PageView
 
 urlpatterns = [
 
     # Own
     path('', HomePageView.as_view(), name='home'),
-    path('code/', CodePageView.as_view(), name='code'),
+
+    path('course/', CoursePageView.as_view(), name='course'),
+    path('course/chapter_1', CourseChapter1PageView.as_view(), name='chapter_1'),
+    path('course/chapter_2', CourseChapter2PageView.as_view(), name='chapter_2'),
+    path('course/chapter_3', CourseChapter3PageView.as_view(), name='chapter_3'),
+
     path('about/', AboutPageView.as_view(), name='about'),
     path('contact/', ContactPageView.as_view(), name='contact'),
     path('register/', register, name='register'),

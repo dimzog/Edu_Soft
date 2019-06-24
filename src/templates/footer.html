@@ -11,7 +11,7 @@
                 <h5 class="white-text">Quick Links</h5>
                 <ul>
                     <li><a {% if 'home' in view.breadcrumbs %}class="black-text text-black lighten-2" {% else %} class="grey-text text-lighten-2 {% endif %}" href="/">Home</a></li>
-                    <li><a {% if 'code' in view.breadcrumbs %}class="black-text text-blue-grey lighten-2" {% else %} class="grey-text text-lighten-2 {% endif %}" href={% url 'code' %}>Code</a></li>
+                    <li><a {% if 'course' in view.breadcrumbs %}class="black-text text-blue-grey lighten-2" {% else %} class="grey-text text-lighten-2 {% endif %}" href={% url 'course' %}>Course</a></li>
                     <li><a {% if 'about' in view.breadcrumbs %}class="black-text text-blue-grey lighten-2" {% else %} class="grey-text text-lighten-2 {% endif %}" href="/about/">About</a></li>
                     <li><a {% if 'contact' in view.breadcrumbs %}class="black-text text-blue-grey lighten-2" {% else %} class="grey-text text-lighten-2 {% endif %}" href="/contact/">Contact</a></li>
                 </ul>

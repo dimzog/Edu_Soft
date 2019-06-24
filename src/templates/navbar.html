@@ -4,7 +4,7 @@
 
         {% block nav %}
         <ul class="right hide-on-med-and-down">
-            <li {% if 'code' in view.breadcrumbs %}class="active"{% endif %}><a href={% url 'code' %}><i class="material-icons left">code</i>Code</a></li>
+            <li {% if 'course' in view.breadcrumbs %}class="active"{% endif %}><a href={% url 'course' %}><i class="material-icons left">code</i>Course</a></li>
             <li {% if 'about' in view.breadcrumbs %}class="active"{% endif %}><a href="/about/"><i class="material-icons left">info</i>About</a></li>
             <li {% if 'contact' in view.breadcrumbs %}class="active"{% endif %}><a href="/contact/"><i class="material-icons left">mail</i>Contact</a></li>
 

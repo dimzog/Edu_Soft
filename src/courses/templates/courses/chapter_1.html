@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h4 class="center">Chapter 1. Python - Basic Syntax</h4>
+    <div class="divider"></div>
+    <div class="container">
+
+        <p>The Python language has many similarities to Perl, C, and Java. However, there are some definite differences between the languages.</p>
+
+        <h5>First Python Program</h5>
+
+        <p>Let us execute programs in different modes of programming.</p>
+        <h6>Interactive Mode Programming</h6>
+        <p>Invoking the interpreter without passing a script file as a parameter brings up the following prompt −</p>
+
+        <div class="row">
+            <div class="card-panel grey lighten-5 z-depth-1">
+                <div class="row valign-wrapper">
+                    <div class="col s12">
+                        <p>$ python <br>
+                            Python 2.4.3 (#1, Nov 11 2010, 13:34:43) <br>
+                            [GCC 4.1.2 20080704 (Red Hat 4.1.2-48)] on linux2 <br>
+                            Type "help", "copyright", "credits" or "license" for more information. <br>
+                            >>></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <p>Type the following text at the Python prompt and press the Enter −</p>
+        <div class="row">
+            <div class="card-panel grey lighten-5 z-depth-1">
+                <div class="row valign-wrapper">
+                    <div class="col s12">
+                        <p>>>> print "Hello, Python!"</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <p>If you are running new version of Python, then you would need to use print statement with parenthesis as in <b>print ("Hello, Python!");</b>. However in Python version 2.4.3, this produces the following result −</p>
+
+        <div class="row">
+            <div class="card-panel grey lighten-5 z-depth-1">
+                <div class="row valign-wrapper">
+                    <div class="col s12">
+                        <p>Hello, Python!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h6>Script Mode Programming</h6>
+        <p>Invoking the interpreter with a script parameter begins execution of the script and continues until the script is finished. When the script is finished, the interpreter is no longer active.
+
+            Let us write a simple Python program in a script. Python files have extension .py. Type the following source code in a test.py file −</p>
+
+        <div class="row">
+            <div class="card-panel grey lighten-5 z-depth-1">
+                <div class="row valign-wrapper">
+                    <div class="col s12">
+                        <p>print "Hello, Python!"</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <p>We assume that you have Python interpreter set in PATH variable. Now, try to run this program as follows −</p>
+
+        <div class="row">
+            <div class="card-panel grey lighten-5 z-depth-1">
+                <div class="row valign-wrapper">
+                    <div class="col s12">
+                        <p>$ python test.py</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <p>This produces the following result −</p>
+
+        <div class="row">
+            <div class="card-panel grey lighten-5 z-depth-1">
+                <div class="row valign-wrapper">
+                    <div class="col s12">
+                        <p>Hello, Python!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="video-container">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/AGnECmJFA9U" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+
+        <div class="row"></div>
+        <div class="divider"></div>
+        <div class="row"></div>
+
+        <div class="row">
+            <div class="center">
+                <a class="waves-effect waves-light btn-small" href="#!">Take Test!</a>
+            </div>
+        </div>
+
+
+
+
+    </div>
+    <ul class="pagination">
+        <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+        <li class="active"><a href="#!">1</a></li>
+
+        {% if user.profile.chapter_studying == 1 %}
+            <li class="disabled"><a href="{% url 'chapter_2' %}">2</a></li>
+            <li class="disabled"><a href="{% url 'chapter_3' %}">3</a></li>
+            <li class="disabled"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+
+        {% elif user.profile.chapter_studying == 2 %}
+            <li class="waves-effect"><a href="{% url 'chapter_2' %}">2</a></li>
+            <li class="disabled"><a href="{% url 'chapter_3' %}">3</a></li>
+            <li class="waves-effect"><a href="{% url 'courses/chapter_2' %}"><i class="material-icons">chevron_right</i></a></li>
+
+        {% else %}
+            <li class="waves-effect"><a href="{% url 'chapter_2' %}">2</a></li>
+            <li class="waves-effect"><a href="{% url 'chapter_3' %}">3</a></li>
+            <li class="waves-effect"><a href="{% url 'chapter_2' %}"><i class="material-icons">chevron_right</i></a></li>
+        {% endif %}
+
+    </ul>
+{% endblock %}
