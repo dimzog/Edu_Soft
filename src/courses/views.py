@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from .forms import TestForm
 
 from .models import Questionnaire, Question, QuestionAnswer, UserAnswer
 # Create your views here.
@@ -49,27 +50,18 @@ class CourseTest1PageView(LoginRequiredMixin, TemplateView):
     breadcrumbs = ['course']
     limit = 5
     name = 'Chapter 1'
+    form = None
 
     def get(self, request, *args, **kwargs):
         user = request.user
 
-        quest = Questionnaire.objects.select_related().get(version=self.name)
-        qs = quest.questions.order_by('?').all()[:self.limit]
+        self.form = TestForm()
 
-        print(f'\nFetching "{quest}": {self.limit} random Questions for {self.name}.')
+        context = {
+            'form': self.form
+        }
 
-        for q in qs:
-            print(f'--- Question: {q}')
-            for a in q.question_answer.all():
-
-                if a.is_valid:
-                    print(f'Answer: {a} [x]')
-                else:
-                    print(f'Answer: {a}')
-
-
-
-        return render(request, self.template_name, {})
+        return render(request, self.template_name, context)
 
 
 
