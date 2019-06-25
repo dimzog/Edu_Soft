@@ -24,7 +24,7 @@ from django.conf.urls.static import static
 from pages.views import HomePageView, AboutPageView, ContactPageView
 from users.views import register, ProfilePageView
 from courses.views import CoursePageView, CourseChapter1PageView, CourseChapter2PageView, CourseChapter3PageView,\
-    CourseTest1PageView
+    CourseTestPageView
 
 urlpatterns = [
 
@@ -36,7 +36,7 @@ urlpatterns = [
     path('course/chapter_2', CourseChapter2PageView.as_view(), name='chapter_2'),
     path('course/chapter_3', CourseChapter3PageView.as_view(), name='chapter_3'),
 
-    path('course/test_1', CourseTest1PageView.as_view(), name='test_1'),
+    path('course/Questionnairy', CourseTestPageView.as_view(), name='Questionnaire'),
 
     path('about/', AboutPageView.as_view(), name='about'),
     path('contact/', ContactPageView.as_view(), name='contact'),

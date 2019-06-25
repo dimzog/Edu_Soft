@@ -13,7 +13,7 @@ class Profile(models.Model):
     attending_course = models.CharField(max_length=100, blank=True, null=True, default='Python 3: From zero to hero')
 
     chapter_studying = models.PositiveIntegerField(default=1)
-    test_taking = models.PositiveIntegerField(default=0)
+    test_taking = models.PositiveIntegerField(default=1)
 
     test_1_times = models.PositiveIntegerField(default=0)
     test_1_total = models.PositiveIntegerField(default=0)

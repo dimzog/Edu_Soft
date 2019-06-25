@@ -45,17 +45,18 @@ class CourseChapter3PageView(LoginRequiredMixin, TemplateView):
         return render(request, self.template_name, {})
 
 
-class CourseTest1PageView(LoginRequiredMixin, TemplateView):
-    template_name = 'courses/test_1.html'
+class CourseTestPageView(LoginRequiredMixin, TemplateView):
+    template_name = 'courses/Questionnaire.html'
     breadcrumbs = ['course']
-    limit = 5
-    name = 'Chapter 1'
     form = None
 
     def get(self, request, *args, **kwargs):
         user = request.user
-
         self.form = TestForm()
+
+        # Adjust test shown based on user progress
+        TestForm.chapter = f'Chapter {user.profile.test_taking}'
+        TestForm.limit = 5
 
         context = {
             'form': self.form
