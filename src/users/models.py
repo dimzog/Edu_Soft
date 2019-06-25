@@ -8,7 +8,7 @@ class Profile(models.Model):
     bio = models.CharField(max_length=250, blank=True, null=True, default='No bio.')
 
     level = models.CharField(max_length=50, default='Beginner')
-    rank = models.ImageField(default='ranks/beginner.png')
+    rank = models.ImageField(default=f'ranks/{level}.png')
 
     attending_course = models.CharField(max_length=100, blank=True, null=True, default='Python 3: From zero to hero')
 

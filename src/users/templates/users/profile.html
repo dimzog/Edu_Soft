@@ -11,7 +11,7 @@
 
         <div class="row">
             <div class="card-panel grey lighten-5 z-depth-1">
-                <div class="row valign-wrapper">
+                <div class="row valign-wrapper center">
                     <div class="col s4">
                         <img src="{{ user.profile.image.url }}" alt="" style="height:150px;" class="circle responsive-img">
                     </div>
@@ -24,9 +24,9 @@
                     <div class="col s4">
                         <h3>Hello, {{ user.username }}!</h3>
                         <p>{{ user.email }}</p>
-                        <blockquote>
+{% comment %}                        <blockquote>
                             <i>{{ user.profile.bio }}</i>
-                        </blockquote>
+                        </blockquote>{% endcomment %}
                     </div>
                 </div>
             </div>

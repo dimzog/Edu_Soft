@@ -19,7 +19,7 @@ class Question(models.Model):
     category = models.CharField(max_length=100, null=False)
 
     def __str__(self):
-        return f'Q: {self.prompt}'
+        return f'{self.prompt}'
 
 
 class QuestionAnswer(models.Model):
@@ -28,7 +28,7 @@ class QuestionAnswer(models.Model):
     is_valid = models.BooleanField()
 
     def __str__(self):
-        return f'{self.question}, A: {self.answer}'
+        return f'Q:{self.question}, A:{self.answer}'
 
 
 class UserAnswer(models.Model):

@@ -47,23 +47,27 @@ class CourseChapter3PageView(LoginRequiredMixin, TemplateView):
 class CourseTest1PageView(LoginRequiredMixin, TemplateView):
     template_name = 'courses/test_1.html'
     breadcrumbs = ['course']
+    limit = 5
+    name = 'Chapter 1'
 
     def get(self, request, *args, **kwargs):
         user = request.user
 
-        quest = Questionnaire.objects.select_related().get(version='Chapter 1')
-        qs = quest.questions.order_by('?').all()[:2]
+        quest = Questionnaire.objects.select_related().get(version=self.name)
+        qs = quest.questions.order_by('?').all()[:self.limit]
+
+        print(f'\nFetching "{quest}": {self.limit} random Questions for {self.name}.')
 
         for q in qs:
-            print(f'Question: {q}')
+            print(f'--- Question: {q}')
             for a in q.question_answer.all():
 
                 if a.is_valid:
-                    print(f'This answer is the correct one! {a}')
+                    print(f'Answer: {a} [x]')
                 else:
-                    print(f'Anser: {a}')
+                    print(f'Answer: {a}')
 
-            print('')
+
 
         return render(request, self.template_name, {})
 
