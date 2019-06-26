@@ -48,7 +48,6 @@ class CourseChapter3PageView(LoginRequiredMixin, TemplateView):
         return render(request, self.template_name, {})
 
 
-
 class CourseTestRedirectView(LoginRequiredMixin, TemplateView):
 
     def get(self, request, *args, **kwargs):
@@ -59,6 +58,12 @@ class CourseTestRedirectView(LoginRequiredMixin, TemplateView):
 class CourseTestPageView(LoginRequiredMixin, TemplateView):
     template_name = 'courses/Questionnaire.html'
     breadcrumbs = ['course']
+
+    bad_at = {
+        1: 'Syntax',
+        2: 'File Management',
+        3: 'Databases'
+    }
 
     def get(self, request, id, *args, **kwargs):
         user = request.user
@@ -75,7 +80,8 @@ class CourseTestPageView(LoginRequiredMixin, TemplateView):
             raise Http404('Questionnaire does not exist')
 
         context = {
-            'form': form
+            'form': form,
+            'id': id
         }
 
         return render(request, self.template_name, context)
@@ -91,12 +97,6 @@ class CourseTestPageView(LoginRequiredMixin, TemplateView):
 
             stats, created = Statistics.objects.get_or_create(user=user, questionnaire=quest)
             data = form.cleaned_data
-
-            bad_at = {
-                1: 'Syntax',
-                2: 'Something',
-                3: 'Databases'
-            }
 
             # Adjust user profile
             stats.answers_correct += data['correct_answers']
@@ -114,10 +114,13 @@ class CourseTestPageView(LoginRequiredMixin, TemplateView):
                     user.profile.test_taking += 1
 
             else:
-                user.profile.bad_at = bad_at[id]
+                user.profile.bad_at = self.bad_at[id]
 
             user.save()
             stats.save()
+
+            if id < 3:
+                return redirect(f'/course/chapter/{id+1}/')
 
         context = {
             'form': form
