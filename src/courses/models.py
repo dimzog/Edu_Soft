@@ -33,5 +33,3 @@ class QuestionAnswer(models.Model):
 
 class UserAnswer(models.Model):
     answer = models.ForeignKey(QuestionAnswer, related_name='user_answer', on_delete=models.CASCADE)
-
-

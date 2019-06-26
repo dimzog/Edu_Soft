@@ -36,7 +36,8 @@ urlpatterns = [
     path('course/chapter_2', CourseChapter2PageView.as_view(), name='chapter_2'),
     path('course/chapter_3', CourseChapter3PageView.as_view(), name='chapter_3'),
 
-    path('course/Questionnairy', CourseTestPageView.as_view(), name='Questionnaire'),
+    path('course/Questionnaire', CourseTestPageView.as_view(), name='Questionnaire'),
+    # path('course/Questionnaire/<int:id>/', CourseTestPageView.as_view(), name='Questionnaire'),
 
     path('about/', AboutPageView.as_view(), name='about'),
     path('contact/', ContactPageView.as_view(), name='contact'),
