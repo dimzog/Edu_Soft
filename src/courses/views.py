@@ -59,11 +59,10 @@ class CourseTestRedirectView(LoginRequiredMixin, TemplateView):
 class CourseTestPageView(LoginRequiredMixin, TemplateView):
     template_name = 'courses/Questionnaire.html'
     breadcrumbs = ['course']
-    limit = 0
 
     def get(self, request, id, *args, **kwargs):
         user = request.user
-
+        limit = Question.objects.filter(questionnaire__name=f'Chapter {id}').count()
         if id is None:
             id = user.profile.chapter_studying
 
@@ -71,7 +70,7 @@ class CourseTestPageView(LoginRequiredMixin, TemplateView):
             return redirect(f'/course/Questionnaire/{user.profile.test_taking}/')
 
         try:
-            form = TestForm(chapter=f'Chapter {id}', limit=self.limit)
+            form = TestForm(chapter=f'Chapter {id}', limit=limit)
         except:
             raise Http404('Questionnaire does not exist')
 
@@ -83,35 +82,42 @@ class CourseTestPageView(LoginRequiredMixin, TemplateView):
 
     def post(self, request, id, *args, **kwargs):
         user = request.user
-        form = TestForm(request.POST, chapter=f'Chapter {id}', limit=self.limit)
+        limit = Question.objects.filter(questionnaire__name=f'Chapter {id}').count()
+        form = TestForm(request.POST, chapter=f'Chapter {id}', limit=limit)
 
         if form.is_valid():
 
             quest = Questionnaire.objects.filter(name=f'Chapter {id}').first()
+
             stats, created = Statistics.objects.get_or_create(user=user, questionnaire=quest)
             data = form.cleaned_data
 
+            bad_at = {
+                1: 'Syntax',
+                2: 'Something',
+                3: 'Databases'
+            }
+
             # Adjust user profile
             stats.answers_correct += data['correct_answers']
-            stats.answers_wrong += self.limit - data['correct_answers']
+            stats.answers_wrong += limit - data['correct_answers']
             stats.times_taken += 1
-            stats.answers_total += self.limit
+            stats.answers_total += limit
 
             if stats.answers_wrong > 0:
                 stats.success_rate = round(stats.answers_correct / stats.answers_wrong, 2)
 
-            #if data['correct_answers'] > (self.limit / 2) + 1:
-            #    if user.profile.chapter_studying == 1:
-            #        user.profile.chapter_studying += 1
-            #        user.profile.test_taking += 1
-            #        user.profile.level = 'Intermediate'
+            if data['correct_answers'] >= int(limit / 2):
+                stats.passed = True
+                if user.profile.chapter_studying == id:
+                    user.profile.chapter_studying += 1
+                    user.profile.test_taking += 1
 
-            #else:
-            #    user.profile.bad_at('Syntax')
+            else:
+                user.profile.bad_at = bad_at[id]
 
+            user.save()
             stats.save()
-
-
 
         context = {
             'form': form

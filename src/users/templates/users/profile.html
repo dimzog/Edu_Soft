@@ -77,7 +77,7 @@
             {% for stat in stats %}
                 <tr>
                     <td>{{ stat.questionnaire.name }}</td>
-                    <td>{% if stat.passed %}} Yes {% else %} No {% endif %}</td>
+                    <td>{% if stat.passed %} Yes {% else %} No {% endif %}</td>
                     <td>{{ stat.times_taken }}</td>
                     <td>{{ stat.answers_correct }}/{{ stat.answers_total }}</td>
                     <td>{{ stat.answers_wrong }}/{{ stat.answers_total }}</td>

@@ -16,13 +16,9 @@ class TestForm(forms.Form):
         # Grab Questionnaire for current Chapter
         self.questionnaire = Questionnaire.objects.select_related().get(name=chapter)
 #
-        # Grab questions that are foreign keys to current Questionnaire from database, limit them.
         # self.questions = self.questionnaire.questions.order_by('?').all()[:self.limit]
-        self.questions = self.questionnaire.questions.all()
+        self.questions = self.questionnaire.questions.all()[:self.limit]
 
-        if self.limit > len(self.questions):
-            self.questions = self.questions[:self.limit]
-#
         # Change select class, because of fault css
         widget = forms.Select(attrs={'class': 'browser-default'})
 #

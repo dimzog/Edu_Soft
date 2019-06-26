@@ -23,7 +23,7 @@ def register(request):
             form.save()
             username = form.cleaned_data.get('username')
             messages.success(request, f'Account created for {username}!')
-            return redirect('/users/login/')
+            return redirect('/login/')
     else:
         form = UserRegisterForm()
 
@@ -38,7 +38,7 @@ class ProfilePageView(LoginRequiredMixin, TemplateView):
     def get(self, request, *args, **kwargs):
         user = request.user
         context = {}
-        stats = Statistics.objects.all()
+        stats = Statistics.objects.filter(user=user)
 
         context['stats'] = stats
 

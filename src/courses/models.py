@@ -39,7 +39,7 @@ class Statistics(models.Model):
     answers_total = models.PositiveIntegerField(default=0)
     answers_correct = models.PositiveIntegerField(default=0)
     answers_wrong = models.PositiveIntegerField(default=0)
-    success_rate = models.FloatField(default=0.0)
+    success_rate = models.FloatField(default=100.0)
 
     passed = models.BooleanField(default=False)
 
