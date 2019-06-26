@@ -6,42 +6,31 @@ from django.db import models
 
 class TestForm(forms.Form):
 
+    limit = 0
 
     def __init__(self, *args, **kwargs):
+        chapter = kwargs.pop('chapter')
         self.limit = kwargs.pop('limit')
-        self.chapter = kwargs.pop('chapter')
         super(TestForm, self).__init__(*args, **kwargs)
-
-
+#
         # Grab Questionnaire for current Chapter
-        self.questionnaire = Questionnaire.objects.select_related().get(version=self.chapter)
-
+        self.questionnaire = Questionnaire.objects.select_related().get(name=chapter)
+#
         # Grab questions that are foreign keys to current Questionnaire from database, limit them.
         # self.questions = self.questionnaire.questions.order_by('?').all()[:self.limit]
-        self.questions = self.questionnaire.questions.all()[:self.limit]
-        print(f'QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ{self.questions}')
+        self.questions = self.questionnaire.questions.all()
 
-        self.queryset = []
-
-        for question in self.questions:
-
-            self.queryset.append([question,
-                                 QuestionAnswer.objects.filter(question=question, question__questionnaire=self.questionnaire)])
-
-        print('\n')
-
-        for q in self.questions:
-            print(f'--- Question: {q}')
-            for a in q.question_answer.all():
-                print(f'Answer: {a} [x]') if a.is_valid else print(f'Answer: {a}')
-
+        if self.limit > len(self.questions):
+            self.questions = self.questions[:self.limit]
+#
         # Change select class, because of fault css
         widget = forms.Select(attrs={'class': 'browser-default'})
-
+#
         # Create question for number of limit, change limit to add more
-        for counter, q in enumerate(self.queryset):
-            self.fields[f'question{counter}'] = forms.ModelChoiceField(label=q[0],
-                                                                       queryset=q[1],
+        for counter, q in enumerate(self.questions):
+            self.fields[f'question{counter}'] = forms.ModelChoiceField(label=q,
+                                                                       queryset=QuestionAnswer.objects.filter(question=q,
+                                                                                                              question__questionnaire=self.questionnaire),
                                                                        required=True,
                                                                        to_field_name='answer',
                                                                        empty_label=None,
@@ -49,9 +38,6 @@ class TestForm(forms.Form):
                                                                        )
 
     def clean(self):
-
-        print(f'>>>>>>>>>>>>>>>>>>>>>>>>>> {self.cleaned_data}')
-
         correct_answers = 0
 
         for i in range(self.limit):

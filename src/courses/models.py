@@ -6,11 +6,11 @@ from django.db import models
 
 
 class Questionnaire(models.Model):
-    version = models.CharField(max_length=100, null=False)
+    name = models.CharField(max_length=100, null=False)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='questionnaire', on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'Quiz: {self.version}, created by {self.user}'
+        return f'Quiz: {self.name}'
 
 
 class Question(models.Model):
@@ -31,5 +31,19 @@ class QuestionAnswer(models.Model):
         return self.answer
 
 
-class UserAnswer(models.Model):
-    answer = models.ForeignKey(QuestionAnswer, related_name='user_answer', on_delete=models.CASCADE)
+class Statistics(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    questionnaire = models.ForeignKey(Questionnaire, on_delete=models.CASCADE)
+
+    times_taken = models.PositiveIntegerField(default=0)
+    answers_total = models.PositiveIntegerField(default=0)
+    answers_correct = models.PositiveIntegerField(default=0)
+    answers_wrong = models.PositiveIntegerField(default=0)
+    success_rate = models.FloatField(default=0.0)
+
+    passed = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f'{self.user}, for {self.questionnaire}'
+
+

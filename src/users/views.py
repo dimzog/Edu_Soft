@@ -4,6 +4,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
 from .forms import UserRegisterForm
+from courses.models import Statistics
 
 # Create your views here.
 
@@ -22,7 +23,7 @@ def register(request):
             form.save()
             username = form.cleaned_data.get('username')
             messages.success(request, f'Account created for {username}!')
-            return redirect('/')
+            return redirect('/users/login/')
     else:
         form = UserRegisterForm()
 
@@ -32,5 +33,16 @@ def register(request):
 class ProfilePageView(LoginRequiredMixin, TemplateView):
     template_name = 'users/profile.html'
     breadcrumbs = ['profile']
+
+
+    def get(self, request, *args, **kwargs):
+        user = request.user
+        context = {}
+        stats = Statistics.objects.all()
+
+        context['stats'] = stats
+
+        return render(request, self.template_name, context)
+
 
 

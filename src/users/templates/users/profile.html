@@ -24,9 +24,6 @@
                     <div class="col s4">
                         <h3>Hello, {{ user.username }}!</h3>
                         <p>{{ user.email }}</p>
-{% comment %}                        <blockquote>
-                            <i>{{ user.profile.bio }}</i>
-                        </blockquote>{% endcomment %}
                     </div>
                 </div>
             </div>
@@ -76,7 +73,18 @@
             </thead>
 
             <tbody>
-            <tr>
+
+            {% for stat in stats %}
+                <tr>
+                    <td>{{ stat.questionnaire.name }}</td>
+                    <td>{% if stat.passed %}} Yes {% else %} No {% endif %}</td>
+                    <td>{{ stat.times_taken }}</td>
+                    <td>{{ stat.answers_correct }}/{{ stat.answers_total }}</td>
+                    <td>{{ stat.answers_wrong }}/{{ stat.answers_total }}</td>
+                    <td>{{ stat.success_rate }} % </td>
+                </tr>
+            {% endfor %}
+{% comment %}            <tr>
                 <td>1</td>
                 <td>{% if user.profile.test_taking > 1 %}} Yes {% else %} No {% endif %}</td>
                 <td>{{ user.profile.test_1_times }}</td>
@@ -99,7 +107,9 @@
                 <td>{{ user.profile.test_3_correct }}/{{ user.profile.test_1_total }}</td>
                 <td>{{ user.profile.test_3_wrong }}/{{ user.profile.test_1_total }}</td>
                 <td>{{ user.profile.test_3_success_rate }} %</td>
-            </tr>
+            </tr>{% endcomment %}
+
+
             </tbody>
         </table>
 
