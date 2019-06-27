@@ -18,6 +18,8 @@ class Chapter(models.Model):
     # This should be html code
     body = models.TextField(null=False)
 
+    def __str__(self):
+        return self.title
 
 
 class Questionnaire(models.Model):
@@ -32,6 +34,8 @@ class Question(models.Model):
     questionnaire = models.ForeignKey(Questionnaire, related_name='questions', on_delete=models.CASCADE)
     prompt = models.CharField(max_length=100, null=False)
     category = models.CharField(max_length=100, null=False)
+
+    show = models.BooleanField(default=True, help_text='Whether to show question in questionnaire or not')
 
     def __str__(self):
         return self.prompt

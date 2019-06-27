@@ -23,7 +23,7 @@ from django.conf.urls.static import static
 # Own
 from pages.views import HomePageView, AboutPageView, ContactPageView
 from users.views import register, ProfilePageView
-from courses.views import CoursePageView, CourseChapterRedirectView, CourseChapterPageView, CourseTestPageView, CourseTestRedirectView
+from courses.views import CoursePageView, CourseChapterRedirectView, CourseChapterPageView, CourseTestPageView, CourseTestRedirectView, CourseCompletedPageView
 
 urlpatterns = [
 
@@ -36,6 +36,9 @@ urlpatterns = [
 
     path('course/Questionnaire/', CourseTestRedirectView.as_view(), name='Questionnaire-main'),
     path('course/Questionnaire/<int:id>/', CourseTestPageView.as_view(), name='Questionnaire'),
+
+    path('course/completed/', CourseCompletedPageView.as_view(), name='course-completed'),
+
 
     path('about/', AboutPageView.as_view(), name='about'),
     path('contact/', ContactPageView.as_view(), name='contact'),

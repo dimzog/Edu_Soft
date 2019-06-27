@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block content %}
+
+    <h4 class="center">Congratulations</h4>
+
+    <div class="container">
+        <div class="divider"></div>
+
+        <h5 class="center">Looks like there are no more Chapters to study.</h5>
+        <div class="row"></div>
+
+        <h5 class="center">Here's your certificate, you can retake any tests and restudy any chapters!</h5>
+        <div class="row"></div>
+
+        <div class="divider"></div>
+
+        <div class="center">
+            <img src="{% static 'courses/images/certificate.png' %}" alt="" style="height:300px;" class="responsive-img">
+        </div>
+
+
+    </div>
+
+
+{% endblock %}

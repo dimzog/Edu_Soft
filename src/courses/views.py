@@ -53,8 +53,6 @@ class CourseChapterPageView(LoginRequiredMixin, TemplateView):
         return render(request, self.template_name, context)
 
 
-
-
 class CourseTestRedirectView(LoginRequiredMixin, TemplateView):
 
     def get(self, request, *args, **kwargs):
@@ -74,7 +72,8 @@ class CourseTestPageView(LoginRequiredMixin, TemplateView):
 
     def get(self, request, id, *args, **kwargs):
         user = request.user
-        limit = Question.objects.filter(questionnaire__name=f'Chapter {id}').count()
+        limit = Question.objects.filter(questionnaire__name=f'Chapter {id}', show=True).count()
+        print(limit)
         if id is None:
             id = user.profile.chapter_studying
 
@@ -95,7 +94,7 @@ class CourseTestPageView(LoginRequiredMixin, TemplateView):
 
     def post(self, request, id, *args, **kwargs):
         user = request.user
-        limit = Question.objects.filter(questionnaire__name=f'Chapter {id}').count()
+        limit = Question.objects.filter(questionnaire__name=f'Chapter {id}', show=True).count()
         form = TestForm(request.POST, chapter=f'Chapter {id}', limit=limit)
 
         if form.is_valid():
@@ -112,7 +111,15 @@ class CourseTestPageView(LoginRequiredMixin, TemplateView):
             stats.answers_total += limit
 
             if stats.answers_wrong > 0:
-                stats.success_rate = round(stats.answers_correct / stats.answers_wrong, 2)
+                stats.success_rate = round(stats.answers_correct / stats.answers_wrong, 2) * 100
+
+                if self.bad_at[id] not in user.profile.bad_at:
+                    if stats.success_rate < 60.0:
+                        user.profile.bad_at += f' {self.bad_at[id]}'
+
+                else:
+                    if stats.success_rate > 60.0:
+                        user.profile.bad_at = user.profile.bad_at.replace(f' {self.bad_at[id]}', '')
 
             if data['correct_answers'] >= int(limit / 2):
                 stats.passed = True
@@ -120,14 +127,15 @@ class CourseTestPageView(LoginRequiredMixin, TemplateView):
                     user.profile.chapter_studying += 1
                     user.profile.test_taking += 1
 
-            else:
-                user.profile.bad_at = self.bad_at[id]
-
             user.save()
             stats.save()
 
-            if id < 3:
-                return redirect(f'/course/chapter/{id+1}/')
+            try:
+                next_chapter = Chapter.objects.get(id=id+1)
+            except:
+                return redirect('/course/completed/')
+
+            return render(request, f'courses/chapter/{id+1}/', {})
 
         context = {
             'form': form
@@ -136,4 +144,18 @@ class CourseTestPageView(LoginRequiredMixin, TemplateView):
         return render(request, self.template_name, context)
 
 
+class CourseCompletedPageView(LoginRequiredMixin, TemplateView):
+
+    template_name = 'courses/completed.html'
+    breadcrumbs = ['course']
+
+
+    def get(self, request, *args, **kwargs):
+        user = request.user
+
+        context = {
+
+        }
+
+        return render(request, self.template_name, context)
 

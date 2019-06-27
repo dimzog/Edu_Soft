@@ -17,21 +17,26 @@ class TestForm(forms.Form):
         self.questionnaire = Questionnaire.objects.select_related().get(name=chapter)
 #
         # self.questions = self.questionnaire.questions.order_by('?').all()[:self.limit]
-        self.questions = self.questionnaire.questions.all()[:self.limit]
+        self.questions = self.questionnaire.questions.filter(show=True)
 
-        # Change select class, because of fault css
+        # Trim then down if more than recommended limit
+        if self.limit < len(self.questions):
+            self.questions = self.questions[:self.limit]
+
+        # Change select class, because of faulty css
         widget = forms.Select(attrs={'class': 'browser-default'})
 #
         # Create question for number of limit, change limit to add more
         for counter, q in enumerate(self.questions):
-            self.fields[f'question{counter}'] = forms.ModelChoiceField(label=q,
-                                                                       queryset=QuestionAnswer.objects.filter(question=q,
-                                                                                                              question__questionnaire=self.questionnaire),
-                                                                       required=True,
-                                                                       to_field_name='answer',
-                                                                       empty_label=None,
-                                                                       widget=widget
-                                                                       )
+            if q.show:
+                self.fields[f'question{counter}'] = forms.ModelChoiceField(label=q,
+                                                                           queryset=QuestionAnswer.objects.filter(question=q,
+                                                                                                                  question__questionnaire=self.questionnaire),
+                                                                           required=True,
+                                                                           to_field_name='answer',
+                                                                           empty_label=None,
+                                                                           widget=widget
+                                                                           )
 
     def clean(self):
         correct_answers = 0

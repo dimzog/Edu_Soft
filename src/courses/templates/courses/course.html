@@ -9,8 +9,7 @@
     <div class="container">
         <div class="divider"></div>
 
-        <h6 class="center">Course Overview</h6>
-        <div class="divider"></div>
+        <h5 class="center">Course Overview</h5>
         <div class="row"></div>
 
 
@@ -23,9 +22,13 @@
                             <img src="{{ chapter.image.url }}" alt="" style="height:150px;" class="responsive-img">
                         </div>
                         <div class="col s4">
+                            <h6>{{ chapter.title }}</h6>
+                        </div>
+                        <div class="col s4">
                         <span class="black-text">
-                            <p>Info: {{ chapter.description }}</p>
+                            <p><b>Description</b><br> {{ chapter.description }}</p>
                         </span>
+                            <a class="waves-effect waves-light btn-small" href="/course/chapter/{{ chapter.id }}/">Take me there!</a>
                         </div>
                     </div>
                 </div>
