@@ -33,7 +33,7 @@ class TestForm(forms.Form):
                                                                            queryset=QuestionAnswer.objects.filter(question=q,
                                                                                                                   question__questionnaire=self.questionnaire),
                                                                            required=True,
-                                                                           to_field_name='answer',
+                                                                           # to_field_name='answer',
                                                                            empty_label=None,
                                                                            widget=widget
                                                                            )

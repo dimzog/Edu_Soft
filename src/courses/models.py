@@ -51,7 +51,7 @@ class QuestionAnswer(models.Model):
 
 
 class Statistics(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     questionnaire = models.ForeignKey(Questionnaire, on_delete=models.CASCADE)
 
     times_taken = models.PositiveIntegerField(default=0)
