@@ -14,7 +14,7 @@ class TestForm(forms.Form):
         super(TestForm, self).__init__(*args, **kwargs)
 #
         # Grab Questionnaire for current Chapter
-        self.questionnaire = Questionnaire.objects.select_related().get(name=chapter)
+        self.questionnaire = Questionnaire.objects.get(name=chapter)
 #
         # self.questions = self.questionnaire.questions.order_by('?').all()[:self.limit]
         self.questions = self.questionnaire.questions.filter(show=True)
@@ -40,6 +40,8 @@ class TestForm(forms.Form):
 
     def clean(self):
         correct_answers = 0
+
+        print(self.cleaned_data)
 
         for i in range(self.limit):
 

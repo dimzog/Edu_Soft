@@ -73,7 +73,6 @@ class CourseTestPageView(LoginRequiredMixin, TemplateView):
     def get(self, request, id, *args, **kwargs):
         user = request.user
         limit = Question.objects.filter(questionnaire__name=f'Chapter {id}', show=True).count()
-        print(limit)
         if id is None:
             id = user.profile.chapter_studying
 
@@ -99,7 +98,7 @@ class CourseTestPageView(LoginRequiredMixin, TemplateView):
 
         if form.is_valid():
 
-            quest = Questionnaire.objects.filter(name=f'Chapter {id}').first()
+            quest = Questionnaire.objects.get(name=f'Chapter {id}')
 
             stats, created = Statistics.objects.get_or_create(user=user, questionnaire=quest)
             data = form.cleaned_data
@@ -135,7 +134,10 @@ class CourseTestPageView(LoginRequiredMixin, TemplateView):
             except:
                 return redirect('/course/completed/')
 
-            return render(request, f'courses/chapter/{id+1}/', {})
+            return redirect(f'/course/chapter/{id+1}/')
+
+
+        form = TestForm(chapter=f'Chapter {id}', limit=limit)
 
         context = {
             'form': form
