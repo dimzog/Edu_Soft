@@ -4,7 +4,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import TestForm
 from django.views.generic.edit import FormView
 from django.forms import formset_factory
-from .models import Statistics
+from .models import Statistics, Chapter
 
 from .models import Questionnaire, Question, QuestionAnswer
 # Create your views here.
@@ -12,40 +12,47 @@ from .models import Questionnaire, Question, QuestionAnswer
 
 class CoursePageView(LoginRequiredMixin, TemplateView):
 
-    template_name = 'courses/course.html'
-    breadcrumbs = ['course']
-
-
-class CourseChapter1PageView(LoginRequiredMixin, TemplateView):
-    template_name = 'courses/chapter_1.html'
-    breadcrumbs = ['course']
-
-
-class CourseChapter2PageView(LoginRequiredMixin, TemplateView):
-    template_name = 'courses/chapter_2.html'
+    template_name = ['courses/course.html']
     breadcrumbs = ['course']
 
     def get(self, request, *args, **kwargs):
         user = request.user
 
-        if user.profile.chapter_studying < 2:
+        chapters = Chapter.objects.all()
+        context = {
+            'chapters': chapters
+        }
 
-            return redirect('course')
-
-        return render(request, self.template_name, {})
+        return render(request, self.template_name, context)
 
 
-class CourseChapter3PageView(LoginRequiredMixin, TemplateView):
-    template_name = 'courses/chapter_3.html'
-    breadcrumbs = ['course']
+class CourseChapterRedirectView(LoginRequiredMixin, TemplateView):
 
     def get(self, request, *args, **kwargs):
         user = request.user
 
-        if user.profile.chapter_studying < 3:
-            return redirect('course')
+        return redirect(f'/course/chapter/{user.profile.test_taking}/')
 
-        return render(request, self.template_name, {})
+
+class CourseChapterPageView(LoginRequiredMixin, TemplateView):
+    template_name = 'courses/chapter.html'
+    breadcrumbs = ['course']
+
+    def get(self, request, chapter_id, *args, **kwargs):
+        user = request.user
+
+        try:
+            chapter = Chapter.objects.get(id=chapter_id)
+        except:
+            raise Http404('Chapter does not exist')
+
+        context = {
+            'chapter': chapter
+        }
+
+        return render(request, self.template_name, context)
+
+
 
 
 class CourseTestRedirectView(LoginRequiredMixin, TemplateView):

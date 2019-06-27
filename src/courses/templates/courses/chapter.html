@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block content %}
+
+    <h4 class="center">{{ chapter.title|safe }}</h4>
+
+    <div class="entry-content">
+        {% autoescape off %}
+            {{ chapter.body }}
+        {% endautoescape off %}
+    </div>
+
+        <ul class="pagination">
+
+        <li class="disabled"><a href=""><i class="material-icons">chevron_left</i></a></li>
+        <li class="waves-effect"><a href="{% url 'chapter_2' %}"><i class="material-icons">chevron_right</i></a></li>
+
+    </ul>
+
+{% endblock %}
+

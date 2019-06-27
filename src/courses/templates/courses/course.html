@@ -1,12 +1,40 @@
+{% extends 'base.html' %}
 
 {% load static %}
+{% block content %}
 
-{% if user.profile.chapter_studying == 1 %}
-    {% include 'courses/chapter_1.html' %}
-{% elif user.profile.chapter_studying == 2 %}
-    {% include 'courses/chapter_2.html' %}
+    <h4 class="center">Python 3: From zero to hero</h4>
 
-{% else %}
-    {% include 'courses/chapter_3.html' %}
 
-{% endif %}
+    <div class="container">
+        <div class="divider"></div>
+
+        <h6 class="center">Course Overview</h6>
+        <div class="divider"></div>
+        <div class="row"></div>
+
+
+        {% for chapter in chapters %}
+
+            <div class="row">
+                <div class="card-panel grey lighten-5 z-depth-1">
+                    <div class="row valign-wrapper center">
+                        <div class="col s4">
+                            <img src="{{ chapter.image.url }}" alt="" style="height:150px;" class="responsive-img">
+                        </div>
+                        <div class="col s4">
+                        <span class="black-text">
+                            <p>Info: {{ chapter.description }}</p>
+                        </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row"></div>
+
+
+        {% endfor %}
+
+        </div>
+
+{% endblock %}

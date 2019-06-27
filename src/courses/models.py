@@ -1,8 +1,23 @@
 from django.contrib.auth.models import User
 from django.conf import settings
 from django.db import models
+from django.template import Context, Template
+from django.utils.safestring import mark_safe
 
 # Create your models here.
+
+
+class Chapter(models.Model):
+    title = models.CharField(max_length=100, null=False)
+
+    image = models.ImageField(default='chapter_default.png', upload_to='chapter_pics')
+
+    description = models.CharField(max_length=100, null=True, blank=True,
+                                   default='This is a sample description for chapter, contact your local admin for changing it.')
+
+    # This should be html code
+    body = models.TextField(null=False)
+
 
 
 class Questionnaire(models.Model):
