@@ -47,7 +47,8 @@ class CourseChapterPageView(LoginRequiredMixin, TemplateView):
             raise Http404('Chapter does not exist')
 
         context = {
-            'chapter': chapter
+            'chapter': chapter,
+            'chapter_id': chapter_id
         }
 
         return render(request, self.template_name, context)
@@ -109,26 +110,35 @@ class CourseTestPageView(LoginRequiredMixin, TemplateView):
             stats.times_taken += 1
             stats.answers_total += limit
 
-            if stats.answers_wrong > 0:
-                stats.success_rate = round(stats.answers_correct / stats.answers_wrong, 2) * 100
+            stats.success_rate = round(stats.answers_correct / stats.answers_total, 2) * 100
 
-                if self.bad_at[id] not in user.profile.bad_at:
-                    if stats.success_rate < 60.0:
+            # TODO
+            # Find better implementation for storing bad_at!!
+            if self.bad_at[id] not in user.profile.bad_at:
+                if stats.success_rate < 60.0:
                         user.profile.bad_at += f' {self.bad_at[id]}'
 
-                else:
-                    if stats.success_rate > 60.0:
-                        user.profile.bad_at = user.profile.bad_at.replace(f' {self.bad_at[id]}', '')
+            else:
+                if stats.success_rate > 60.0:
+                    user.profile.bad_at = user.profile.bad_at.replace(f' {self.bad_at[id]}', '')
 
-            if data['correct_answers'] >= int(limit / 2):
+            # if user scores 60%+, consider it success
+            if data['correct_answers'] / limit >= 0.6:
                 stats.passed = True
+
                 if user.profile.chapter_studying == id:
                     user.profile.chapter_studying += 1
                     user.profile.test_taking += 1
 
-            user.save()
-            stats.save()
+                user.save()
+                stats.save()
 
+            else:
+                user.save()
+                stats.save()
+                return redirect(f'/course/chapter/{id}/')
+
+            # Try grabbing next chapter, if there isnt any, course is completed.
             try:
                 next_chapter = Chapter.objects.get(id=id+1)
             except:
@@ -136,8 +146,6 @@ class CourseTestPageView(LoginRequiredMixin, TemplateView):
 
             return redirect(f'/course/chapter/{id+1}/')
 
-
-        form = TestForm(chapter=f'Chapter {id}', limit=limit)
 
         context = {
             'form': form
@@ -151,13 +159,10 @@ class CourseCompletedPageView(LoginRequiredMixin, TemplateView):
     template_name = 'courses/completed.html'
     breadcrumbs = ['course']
 
-
     def get(self, request, *args, **kwargs):
         user = request.user
 
-        context = {
-
-        }
+        context = {}
 
         return render(request, self.template_name, context)
 

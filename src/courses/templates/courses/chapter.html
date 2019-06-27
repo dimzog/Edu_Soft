@@ -11,12 +11,18 @@
         {% endautoescape off %}
     </div>
 
-        <ul class="pagination">
 
-        <li class="disabled"><a href=""><i class="material-icons">chevron_left</i></a></li>
-        <li class="waves-effect"><a href=""><i class="material-icons">chevron_right</i></a></li>
+        <div class="row"></div>
+        <div class="divider"></div>
+        <div class="row"></div>
 
-    </ul>
+            <div class="row">
+            <div class="center">
+                <a class="waves-effect waves-light btn-large" href="{% url 'course' %}">Go back!</a>
+                <a class="waves-effect waves-light btn-large" href="/course/Questionnaire/{{ chapter_id }}/">Take Test!</a>
+            </div>
+        </div>
+
 
 {% endblock %}
 
