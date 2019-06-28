@@ -46,8 +46,11 @@ class CourseChapterPageView(LoginRequiredMixin, TemplateView):
         except:
             raise Http404('Chapter does not exist')
 
-        quest = Questionnaire.objects.get(name=f'Chapter {chapter_id}')
-        stats, created = Statistics.objects.get_or_create(user=user, questionnaire=quest)
+        try:
+            quest = Questionnaire.objects.get(id=chapter_id)
+            stats, created = Statistics.objects.get_or_create(user=user, questionnaire=quest)
+        except:
+            raise Http404('Chapter should be followed by Questionnaire')
 
         stats.times_read += 1
         stats.save()
@@ -78,7 +81,7 @@ class CourseTestPageView(LoginRequiredMixin, TemplateView):
 
     def get(self, request, id, *args, **kwargs):
         user = request.user
-        limit = Question.objects.filter(questionnaire__name=f'Chapter {id}', show=True).count()
+
         if id is None:
             id = user.profile.chapter_studying
 
@@ -86,25 +89,30 @@ class CourseTestPageView(LoginRequiredMixin, TemplateView):
             return redirect(f'/course/Questionnaire/{user.profile.test_taking}/')
 
         try:
-            form = TestForm(chapter=f'Chapter {id}', limit=limit)
+            quest = Questionnaire.objects.get(id=id)
+
         except:
-            raise Http404('Questionnaire does not exist')
+            return redirect('/course/completed/')
+
+        limit = Question.objects.filter(questionnaire=quest, show=True).count()
+
+        form = TestForm(chapter=id, limit=limit)
 
         context = {
             'form': form,
-            'id': id
+            'questionnaire': quest,
+
         }
 
         return render(request, self.template_name, context)
 
     def post(self, request, id, *args, **kwargs):
         user = request.user
-        limit = Question.objects.filter(questionnaire__name=f'Chapter {id}', show=True).count()
-        form = TestForm(request.POST, chapter=f'Chapter {id}', limit=limit)
+        quest = Questionnaire.objects.get(id=id)
+        limit = Question.objects.filter(questionnaire=quest, show=True).count()
+        form = TestForm(request.POST, chapter=id, limit=limit)
 
         if form.is_valid():
-
-            quest = Questionnaire.objects.get(name=f'Chapter {id}')
 
             stats, created = Statistics.objects.get_or_create(user=user, questionnaire=quest)
             data = form.cleaned_data
@@ -163,12 +171,12 @@ class CourseTestPageView(LoginRequiredMixin, TemplateView):
             # Try grabbing next chapter, if there isnt any, course is completed.
 
             try:
-                next_chapter = Chapter.objects.get(id=id + 1)
+                next_chapter = Chapter.objects.get(id=id+1)
 
             except:
 
                 try:
-                    next_quest = Questionnaire.objects.get(name='Chapter 4')
+                    next_quest = Questionnaire.objects.get(id=id+1)
                 except:
                     return redirect('/course/completed/')
 
@@ -179,7 +187,8 @@ class CourseTestPageView(LoginRequiredMixin, TemplateView):
 
 
         context = {
-            'form': form
+            'form': form,
+            'questionnaire': quest,
         }
 
         return render(request, self.template_name, context)

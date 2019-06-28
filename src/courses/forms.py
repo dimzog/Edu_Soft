@@ -15,7 +15,7 @@ class TestForm(forms.Form):
         super(TestForm, self).__init__(*args, **kwargs)
 #
         # Grab Questionnaire for current Chapter
-        self.questionnaire = Questionnaire.objects.get(name=chapter)
+        self.questionnaire = Questionnaire.objects.get(id=chapter)
 #
         # self.questions = self.questionnaire.questions.order_by('?').all()[:self.limit]
         self.questions = self.questionnaire.questions.filter(show=True)
