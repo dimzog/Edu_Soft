@@ -9,17 +9,35 @@ from django.utils.safestring import mark_safe
 
 class Chapter(models.Model):
     title = models.CharField(max_length=100, null=False)
-
     image = models.ImageField(default='chapter_default.png', upload_to='chapter_pics')
-
     description = models.CharField(max_length=100, null=True, blank=True,
                                    default='This is a sample description for chapter, contact your local admin for changing it.')
-
     # This should be html code
     body = models.TextField(null=False)
 
     def __str__(self):
         return self.title
+
+
+class Category(models.Model):
+    name = models.CharField(max_length=100, null=False)
+
+    def __str__(self):
+        return self.name
+
+
+class StatisticsPerCategory(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+
+    answers_total = models.PositiveIntegerField(default=0)
+    answers_correct = models.PositiveIntegerField(default=0)
+    answers_wrong = models.PositiveIntegerField(default=0)
+
+    bad_at = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f'Category: {self.category} for User: {self.user}'
 
 
 class Questionnaire(models.Model):
@@ -32,9 +50,8 @@ class Questionnaire(models.Model):
 
 class Question(models.Model):
     questionnaire = models.ForeignKey(Questionnaire, related_name='questions', on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
     prompt = models.CharField(max_length=100, null=False)
-    category = models.CharField(max_length=100, null=False)
-
     show = models.BooleanField(default=True, help_text='Whether to show question in questionnaire or not')
 
     def __str__(self):
@@ -47,13 +64,14 @@ class QuestionAnswer(models.Model):
     is_valid = models.BooleanField()
 
     def __str__(self):
-        return self.answer
+        return f'{self.answer} for "{self.question}"'
 
 
 class Statistics(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     questionnaire = models.ForeignKey(Questionnaire, on_delete=models.CASCADE)
 
+    times_read = models.PositiveIntegerField(default=0)
     times_taken = models.PositiveIntegerField(default=0)
     answers_total = models.PositiveIntegerField(default=0)
     answers_correct = models.PositiveIntegerField(default=0)

@@ -6,7 +6,7 @@ from django.views.generic.edit import FormView
 from django.forms import formset_factory
 from .models import Statistics, Chapter
 
-from .models import Questionnaire, Question, QuestionAnswer
+from .models import Questionnaire, Question, QuestionAnswer, StatisticsPerCategory, Statistics
 # Create your views here.
 
 
@@ -46,6 +46,11 @@ class CourseChapterPageView(LoginRequiredMixin, TemplateView):
         except:
             raise Http404('Chapter does not exist')
 
+        quest = Questionnaire.objects.get(name=f'Chapter {chapter_id}')
+        stats, created = Statistics.objects.get_or_create(user=user, questionnaire=quest)
+
+        stats.times_read += 1
+        stats.save()
         context = {
             'chapter': chapter,
             'chapter_id': chapter_id
@@ -104,26 +109,43 @@ class CourseTestPageView(LoginRequiredMixin, TemplateView):
             stats, created = Statistics.objects.get_or_create(user=user, questionnaire=quest)
             data = form.cleaned_data
 
-            # Adjust user profile
-            stats.answers_correct += data['correct_answers']
-            stats.answers_wrong += limit - data['correct_answers']
-            stats.times_taken += 1
-            stats.answers_total += limit
+            # total correct answers in current questionnaire
+            current_correct_answers = 0
 
+            for i in range(limit):
+
+                # Grab question data
+                user_answer = data.get(f'question{i}')
+                # for each category need to update data separate, so each loop needs to grab category statistics from DB
+                stats_cat, created = StatisticsPerCategory.objects.get_or_create(user=user, category=user_answer.question.category)
+
+                if user_answer.is_valid:
+                    current_correct_answers += 1
+                    stats_cat.answers_correct += 1
+
+                else:
+                    current_correct_answers += 1
+                    stats_cat.answers_wrong += 1
+
+                stats_cat.answers_total += 1
+
+                if stats_cat.answers_wrong >= stats_cat.answers_correct:
+                    stats_cat.bad_at = True
+#
+                else:
+                    stats_cat.bad_at = False
+
+                stats_cat.save()
+
+            stats.answers_correct += current_correct_answers
+            stats.answers_wrong += limit - current_correct_answers
+            stats.answers_total += current_correct_answers
+
+            stats.times_taken += 1
             stats.success_rate = round(stats.answers_correct / stats.answers_total, 2) * 100
 
-            # TODO
-            # Find better implementation for storing bad_at!!
-            if self.bad_at[id] not in user.profile.bad_at:
-                if stats.success_rate < 60.0:
-                        user.profile.bad_at += f' {self.bad_at[id]}'
-
-            else:
-                if stats.success_rate > 60.0:
-                    user.profile.bad_at = user.profile.bad_at.replace(f' {self.bad_at[id]}', '')
-
             # if user scores 60%+, consider it success
-            if data['correct_answers'] / limit >= 0.6:
+            if current_correct_answers / limit >= 0.6:
                 stats.passed = True
 
                 if user.profile.chapter_studying == id:
@@ -139,10 +161,19 @@ class CourseTestPageView(LoginRequiredMixin, TemplateView):
                 return redirect(f'/course/chapter/{id}/')
 
             # Try grabbing next chapter, if there isnt any, course is completed.
+
             try:
-                next_chapter = Chapter.objects.get(id=id+1)
+                next_chapter = Chapter.objects.get(id=id + 1)
+
             except:
-                return redirect('/course/completed/')
+
+                try:
+                    next_quest = Questionnaire.objects.get(name='Chapter 4')
+                except:
+                    return redirect('/course/completed/')
+
+                return redirect(f'/course/Questionnaire/{id+1}/')
+
 
             return redirect(f'/course/chapter/{id+1}/')
 

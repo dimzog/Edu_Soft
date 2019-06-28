@@ -4,16 +4,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
 from .forms import UserRegisterForm
-from courses.models import Statistics
-
-# Create your views here.
-
-#
-# class RegisterPageView(TemplateView):
-#     template_name = 'users/register.html'
-#     breadcrumbs = ['register']
-#
-#     form = UserCreationForm()
+from courses.models import Statistics, StatisticsPerCategory
 
 
 def register(request):
@@ -37,10 +28,13 @@ class ProfilePageView(LoginRequiredMixin, TemplateView):
 
     def get(self, request, *args, **kwargs):
         user = request.user
-        context = {}
         stats = Statistics.objects.filter(user=user)
+        stats_cat = StatisticsPerCategory.objects.filter(user=user)
 
-        context['stats'] = stats
+        context = {
+            'stats': stats,
+            'stats_cat': stats_cat
+        }
 
         return render(request, self.template_name, context)
 

@@ -1,5 +1,5 @@
 from django import forms
-from .models import Questionnaire, QuestionAnswer, Question
+from .models import Questionnaire, QuestionAnswer, Question, StatisticsPerCategory
 from django.contrib.auth.models import User
 from django.db import models
 
@@ -7,6 +7,7 @@ from django.db import models
 class TestForm(forms.Form):
 
     limit = 0
+    user = None
 
     def __init__(self, *args, **kwargs):
         chapter = kwargs.pop('chapter')
@@ -38,23 +39,17 @@ class TestForm(forms.Form):
                                                                            widget=widget
                                                                            )
 
-    def clean(self):
-        correct_answers = 0
-
-        print(self.cleaned_data)
-
-        for i in range(self.limit):
-
-            user_answer = self.cleaned_data.get(f'question{i}')
-
-            if user_answer is None:
-                print(self.questions[i])
-                print(self.cleaned_data.get(f'question{i}'))
-
-            if user_answer.is_valid:
-                correct_answers += 1
-
-        self.cleaned_data['correct_answers'] = correct_answers
+    #def clean(self):
+    #    correct_answers = 0
+#
+    #    for i in range(self.limit):
+#
+    #        user_answer = self.cleaned_data.get(f'question{i}')
+#
+    #        if user_answer.is_valid:
+    #            correct_answers += 1
+#
+    #    self.cleaned_data['correct_answers'] = correct_answers
 
 
 

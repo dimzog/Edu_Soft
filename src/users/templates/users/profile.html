@@ -44,7 +44,7 @@
                 <b>Attending:</b> "{{ user.profile.attending_course }}"
             </p>
             </div>
-        </div>
+        </div>{% comment %}
 
         <div class="row">
             <div class="col s6">
@@ -52,20 +52,24 @@
             </div>
 
             <div class="col s6">
-                {% if user.profile.bad_at == None %}
-                    <h6>Nothing to fix, perfect just the way you are</h6>
-                {% else %}
-                    <h6>You should really work your: {{ user.profile.bad_at }}</h6>
-                {% endif %}
+                <h6>You should really work your:
+                {% for stat_c in stats_cat %}
+                    {% if stat_c.bad_at %}
+                        {{ stat_c.category }},
+                    {% endif %}
+                {% endfor %}
+                </h6>
             </div>
-        </div>
+        </div>{% endcomment %}
 
-        <table class="center">
+        <h5 class="center">Statistics per Chapter</h5>
+        <table class="centered">
             <thead>
             <tr>
                 <th>Chapter</th>
+                <th>Times Read Theory</th>
                 <th>Test Passed</th>
-                <th>Times Taken</th>
+                <th>Times Taken Test</th>
                 <th>Correct Answers (Total)</th>
                 <th>Wrong Answers (Total)</th>
                 <th>Success Rate</th>
@@ -77,42 +81,45 @@
             {% for stat in stats %}
                 <tr>
                     <td>{{ stat.questionnaire.name }}</td>
+                    <td>{{ stat.times_read }}</td>
                     <td>{% if stat.passed %} Yes {% else %} No {% endif %}</td>
                     <td>{{ stat.times_taken }}</td>
                     <td>{{ stat.answers_correct }}/{{ stat.answers_total }}</td>
                     <td>{{ stat.answers_wrong }}/{{ stat.answers_total }}</td>
-                    <td>{{ stat.success_rate }} % </td>
+                    <td>{{ stat.success_rate|floatformat:0 }} %</td>
                 </tr>
             {% endfor %}
-{% comment %}            <tr>
-                <td>1</td>
-                <td>{% if user.profile.test_taking > 1 %}} Yes {% else %} No {% endif %}</td>
-                <td>{{ user.profile.test_1_times }}</td>
-                <td>{{ user.profile.test_1_correct }}/{{ user.profile.test_1_total }}</td>
-                <td>{{ user.profile.test_1_wrong }}/{{ user.profile.test_1_total }}</td>
-                <td>{{ user.profile.test_1_success_rate }} %</td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>{% if user.profile.test_taking > 2 %}} Yes {% else %} No {% endif %}</td>
-                <td>{{ user.profile.test_2_times }}</td>
-                <td>{{ user.profile.test_2_correct }}/{{ user.profile.test_1_total }}</td>
-                <td>{{ user.profile.test_2_wrong }}/{{ user.profile.test_1_total }}</td>
-                <td>{{ user.profile.test_2_success_rate }} %</td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>{% if user.profile.test_taking > 3 %}} Yes {% else %} No {% endif %}</td>
-                <td>{{ user.profile.test_3_times }}</td>
-                <td>{{ user.profile.test_3_correct }}/{{ user.profile.test_1_total }}</td>
-                <td>{{ user.profile.test_3_wrong }}/{{ user.profile.test_1_total }}</td>
-                <td>{{ user.profile.test_3_success_rate }} %</td>
-            </tr>{% endcomment %}
-
 
             </tbody>
         </table>
 
+
+        <div class="row"></div>
+
+        <h5 class="center">Statistics per Category</h5>
+        <table class="centered">
+            <thead>
+            <tr>
+                <th>Category</th>
+                <th>Correct Answers (Total)</th>
+                <th>Wrong Answers (Total)</th>
+                <th>Should you improve?</th>
+            </tr>
+            </thead>
+
+            <tbody>
+
+            {% for stat_c in stats_cat %}
+                <tr>
+                    <td>{{ stat_c.category }}</td>
+                    <td>{{ stat_c.answers_correct }}/{{ stat_c.answers_total }}</td>
+                    <td>{{ stat_c.answers_wrong }}/{{ stat_c.answers_total }}</td>
+                    <td>{% if stat_c.bad_at %} Yes {% else %} No {% endif %}</td>
+                </tr>
+            {% endfor %}
+
+            </tbody>
+        </table>
 
         <div class="divider"></div>
         <div class="row"></div>
