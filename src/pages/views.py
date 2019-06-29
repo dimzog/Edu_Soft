@@ -21,3 +21,7 @@ class ContactPageView(TemplateView):
     breadcrumbs = ['contact']
 
 
+class HelptPageView(TemplateView):
+    template_name = 'help.html'
+    breadcrumbs = ['help']
+

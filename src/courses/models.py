@@ -22,6 +22,9 @@ class Chapter(models.Model):
 class Category(models.Model):
     name = models.CharField(max_length=100, null=False)
 
+    extra_material = models.CharField(max_length=100, null=False, blank=True, default='https://www.google.com',
+                                      help_text='This SHOULD be url link to extra studying material for the current chapter!')
+
     def __str__(self):
         return self.name
 

@@ -1,0 +1,253 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+{% load static %}
+
+
+    <div class="row">
+        <h3 class="center-align">Code School</h3>
+    </div>
+
+
+    <div class="container">
+        <div class="row center">
+            <p class="center-align">User Instructions for Page usage</p>
+        </div>
+
+
+        <div class="row"></div>
+        <div class="divider"></div>
+        <div class="row"></div>
+        <div class="divider"></div>
+
+        <div class="row">
+            <h4 class="center-align">Login</h4>
+        </div>
+
+        <div class="row">
+            <p>Για την χρήση της ιστοσελίδας ο χρήστης πρέπει να κάνει σύνδεση στην ιστοσελίδα. Ο χρήστης
+                θα αναγκαστεί να κάνει σύνδεση σε περίπτωση που πατήσει να μεταφερθεί στο Course σε
+                περίπτωση που δεν είναι συνδεδεμένος είτε να πατήσει το κουμπί Login το οποίο βρίσκεται στο
+                navigation bar στο πάνω μέρος της οθόνης. Αν ο χρήστης δεν έχει προφίλ στην ιστοσελίδα τότε
+                του δίνετε η δυνατότητα να κάνει εγγραφή, όπου για να μεταφερθεί στην σελίδα εγγραφής χρήστη
+                πρέπει να πατήσει το κουμπί Register.</p>
+        </div>
+
+        <div class="row center">
+            <div class="col s4">
+                <img src="{% static 'pages/images/help_page_images/login_btn.png' %}" alt="" style="height:50px;" class="responsive-img">
+                <p>Login button</p>
+            </div>
+            <div class="col s4">
+                <img src="{% static 'pages/images/help_page_images/register_btn.png' %}" alt="" style="height:50px;" class="responsive-img">
+                <p>Register button </p>
+            </div>
+            <div class="col s4">
+                <img src="{% static 'pages/images/help_page_images/course_btn.png' %}" alt="" style="height:50px;" class="responsive-img">
+                <p>Course button </p>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <p>Όταν ο χρήστης πατήσει το κουμπί Login θα μεταφερθείς στην σελίδα για να κάνει τη σύνδεση
+                στο προφίλ του. Όπου θα πρέπει να πληκτρολογήσει το Username του στο πεδίο username και
+                τον κωδικό του στο πεδίο Password. Για να πραγματοποιήσει τη σύνδεση ο χρήστης πρέπει να
+                πατήσει το κουμπί LOGIN. Σε περίπτωση που δεν έχει προφίλ, μπορεί να πατήσει το link Sign
+                Up Now για να μεταφερθεί στην σελίδα εγγραφής χρήστη.</p>
+        </div>
+
+        <div class="row center">
+            <img src="{% static 'pages/images/help_page_images/login_page.png' %}" alt="" style="height:400px;" class="responsive-img">
+        </div>
+
+
+        <div class="divider"></div>
+
+        <div class="row">
+            <h4 class="center-align">Register</h4>
+        </div>
+
+
+        <div class="row">
+            <p>Όταν ο χρήστης επιλέξει να κάνει εγγραφή χρήστη, θα μεταφερθεί στη σελίδα εγγραφής χρήστη,
+                όπου θα πρέπει να πληκτρολογήσει ένα Username το οποίο θα πρέπει να είναι μικρότερο από
+                150 χαρακτήρες και να περιέχει γράμματα μόνο και ορισμένα σύμβολα. Επίσης θα πρέπει να
+                πληκτρολογήσει ένα Email και ένα Password το οποίο θα πρέπει να περιέχει τουλάχιστον οχτώ
+                χαρακτήρες, τον οποίο κωδικό πρέπει να ξανά πληκτρολογήσει για να γίνει επαλήθευση κωδικού.</p>
+        </div>
+
+        <div class="row center">
+            <img src="{% static 'pages/images/help_page_images/register_page.png' %}" alt="" style="height:500px;" class="responsive-img">
+        </div>
+
+        <div class="row">
+            <p>Για την ολοκλήρωση της εγγραφής του, και εφόσον ότι πληκτρολόγησε συμβαδίζει με τους κανόνες που
+                έχουμε θέσει, θα πρέπει να αποδεχθεί τα Terms of Use και να πατήσει το κουμπί REGISTER.
+            </p>
+        </div>
+
+                <div class="row center">
+            <img src="{% static 'pages/images/help_page_images/tou.png' %}" alt="" style="height:100px;" class="responsive-img">
+        </div>
+
+    <div class="divider"></div>
+
+        <div class="row">
+            <h4 class="center-align">Contact</h4>
+        </div>
+
+        <div class="row">
+            <p>Για να επικοινωνήσει ο χρήστης μαζί μας, μπορεί να πατήσει το κουμπί contact το οποίο
+                βρίσκεται στο πάνω μέρος κάθε σελίδας στο navigation bar, όπου θα τον μεταφέρει στη σελίδα
+                επικοινωνίας</p>
+        </div>
+
+
+        <div class="row center">
+            <img src="{% static 'pages/images/help_page_images/contact_btn.png' %}" alt="" style="height:50px;" class="responsive-img">
+        </div>
+
+        <div class="row">
+            <p>Ο χρήστης πρέπει να πληκτρολογήσει το όνομα του στα πεδία First Name & Last Name , το
+                τηλέφωνό του στο πεδίο Telephone, το email του στο πεδίο Email, το μήνυμα που επιθυμεί να
+                μας στείλει στο πεδίο Message και τέλος αν θέλει μπορεί να αναρτήσει κάποιο αρχείο. Για την
+                αποστολή του μηνύματος πρέπει ο χρήστης, να πατήσει το κουμπί SUBMIT.
+
+            </p>
+        </div>
+
+        <div class="row center">
+            <img src="{% static 'pages/images/help_page_images/contact_page.png' %}" alt="" style="height:400px;" class="responsive-img">
+        </div>
+
+
+        <div class="divider"></div>
+
+        <div class="row">
+            <h4 class="center-align">About</h4>
+        </div>
+
+        <div class="row">
+            <p>Ο χρήστης μπορεί να ενημερωθεί για την ομάδα η οποία υλοποίησε την συγκεκριμένη ιστοσελίδα,
+                με το να πατήσει το κουμπί About το οποίο βρίσκεται στο πάνω μέρος κάθε σελίδας στο
+                navigation bar, όπου θα τον μεταφέρει στην σελίδα About the team, όπου υπάρχουν πληροφορίες
+                για τα μέλη της ομάδας.</p>
+        </div>
+
+        <div class="row center">
+            <img src="{% static 'pages/images/help_page_images/about_btn.png' %}" alt="" style="height:50px;" class="responsive-img">
+        </div>
+
+
+        <div class="divider"></div>
+
+        <div class="row">
+            <h4 class="center-align">Logout</h4>
+        </div>
+
+        <div class="row">
+            <p>Αφού ο χρήστης είναι συνδεδεμένος στην ιστοσελίδα, μπορεί να αποσυνδεθεί με το πάτημα του
+                κουμπιού Logout, το οποίο βρίσκετε στο πάνω μέρος της οθόνης, στο navigation bar</p>
+        </div>
+
+        <div class="row center">
+            <img src="{% static 'pages/images/help_page_images/logout_btn.png' %}" alt="" style="height:50px;" class="responsive-img">
+        </div>
+
+
+        <div class="divider"></div>
+
+        <div class="row">
+            <h4 class="center-align">Profile</h4>
+        </div>
+
+        <div class="row">
+            <p>Αφού ο χρήστης είναι συνδεδεμένος στην ιστοσελίδα, μπορεί να δει την σελίδα του προφίλ του
+                με το πάτημα του κουμπιού Profile, το οποίο βρίσκετε στο πάνω μέρος της οθόνης, στο
+                navigation bar.</p>
+        </div>
+
+        <div class="row center">
+            <img src="{% static 'pages/images/help_page_images/profile_btn.png' %}" alt="" style="height:50px;" class="responsive-img">
+        </div>
+
+
+        <div class="row">
+            <p>Στη σελίδα του προφίλ του χρήστη, ο χρήστης μπορεί να δει το Level του, το course το οποίο
+                παρακολουθεί και στατιστικά τα οποία έχουν βγει από την πρόοδο του στο συγκεκριμένο course
+                αλλά και τα test που έχει πραγματοποιήσει, όπως πόσες φόρες έχει διαβάσει κάποιο chapter, αν
+                έχει περάσει το test του συγκεκριμένου chapter, πόσες φορές έχει κάνει το κάθε test, πόσες
+                σωστές απαντήσεις έχει δώσει, πόσες λάθος απαντήσεις έχει δώσει αλλά και το ποσοστό
+                επιτυχίας του. Επίσης μπορεί να δει και τις σωστές, λάθος απαντήσεις που έχει δώσει σε
+                ερωτήσεις συγκεκριμένης κατηγορίας όπως το συντακτικό και αν θα έπρεπε να ξανά κοιτάξει την
+                θεωρία.</p>
+        </div>
+
+
+
+            <div class="divider"></div>
+
+        <div class="row">
+            <h4 class="center-align">Course</h4>
+        </div>
+
+        <div class="row">
+            <p>Αφού ο χρήστης είναι συνδεδεμένος στην ιστοσελίδα, μπορεί να παρακολουθήσει την θεωρία
+                συγκεκριμένου μαθήματος, με το πάτημα του κουμπιού Course, το οποίο βρίσκετε στο πάνω
+                μέρος της οθόνης, στο navigation bar, είτε από την αρχική σελίδα με το πάτημα του κουμπιού
+                Course πάλι.
+                Ο χρήστης θα μετακινηθεί στην σελίδα του Course όπου μπορεί να δει τα διαθέσιμα chapters του
+                μαθήματος, όπου για να παρακολουθήσει ένα συγκεκριμένο θέμα θεωρίας πρέπει να πατήσει το
+                κουμπί TAKE ME THERE!, το οποίο βρίσκεται στο επιθυμητό θέμα θεωρίας.</p>
+        </div>
+
+    <div class="row center">
+        <img src="{% static 'pages/images/help_page_images/course_page.png' %}" alt="" style="height:400px;" class="responsive-img">
+    </div>
+
+
+    <div class="row">
+        <p>Από την σελίδα της θεωρίας, ο χρήστης μπορεί είτε να πάει πίσω μετά το διάβασμα της θεωρίας
+            με το πάτημα του κουμπιού GO BACK!, είτε να κάνει το test το οποίο προορίζεται για το
+            συγκεκριμένο θέμα θεωρίας με το πάτημα του κουμπιού του TAKE TEST!
+        </p>
+    </div>
+
+    <div class="row center">
+        <img src="{% static 'pages/images/help_page_images/chapter_btn.png' %}" alt="" style="height:50px;" class="responsive-img">
+    </div>
+
+
+    <div class="row">
+        <p>Όταν ο χρήστης επιλέξει να κάνει το συγκεκριμένο test οδηγείται στην σελίδα η οποία περιέχει το
+            test με τις ερωτήσεις και τις διαθέσιμες απαντήσεις. Για την επιλογή της κάθε απάντησης ο
+            χρήστης πρέπει να πατήσει πάνω στην απάντηση για να δει τις διαθέσιμες απαντήσεις. Τέλος για
+            την ολοκλήρωση του test πρέπει να πατήσει το κουμπί SUBMIT.
+        </p>
+
+
+        <div class="row center">
+            <img src="{% static 'pages/images/help_page_images/quest_page.png' %}" alt="" style="height:200px;" class="responsive-img">
+        </div>
+
+        <div class="row center">
+            <img src="{% static 'pages/images/help_page_images/submit_btn.png' %}" alt="" style="height:50px;" class="responsive-img">
+        </div>
+
+
+
+    </div>
+
+        <div class="row"></div>
+        <div class="divider"></div>
+        <div class="row"></div>
+
+    </div>
+
+
+
+
+{% endblock %}
+

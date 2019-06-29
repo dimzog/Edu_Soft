@@ -104,6 +104,7 @@
                 <th>Correct Answers (Total)</th>
                 <th>Wrong Answers (Total)</th>
                 <th>Should you improve?</th>
+                <th>Additional Studying Material</th>
             </tr>
             </thead>
 
@@ -115,6 +116,11 @@
                     <td>{{ stat_c.answers_correct }}/{{ stat_c.answers_total }}</td>
                     <td>{{ stat_c.answers_wrong }}/{{ stat_c.answers_total }}</td>
                     <td>{% if stat_c.bad_at %} Yes {% else %} No {% endif %}</td>
+                {% if stat_c.category.extra_material %}
+                    <td><a href="{{ stat_c.extra_material }}">Link</a> </td>
+                {% else %}
+                    <td>-</td>
+                {% endif %}
                 </tr>
             {% endfor %}
 

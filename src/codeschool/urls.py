@@ -21,7 +21,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 # Own
-from pages.views import HomePageView, AboutPageView, ContactPageView
+from pages.views import HomePageView, AboutPageView, ContactPageView, HelptPageView
 from users.views import register, ProfilePageView
 from courses.views import CoursePageView, CourseChapterRedirectView, CourseChapterPageView, CourseTestPageView, CourseTestRedirectView, CourseCompletedPageView
 
@@ -44,6 +44,7 @@ urlpatterns = [
     path('contact/', ContactPageView.as_view(), name='contact'),
     path('register/', register, name='register'),
     path('profile/', ProfilePageView.as_view(), name='profile'),
+    path('help/', HelptPageView.as_view(), name='help'),
 
 
     # Django included
