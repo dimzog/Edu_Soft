@@ -73,12 +73,6 @@ class CourseTestPageView(LoginRequiredMixin, TemplateView):
     template_name = 'courses/Questionnaire.html'
     breadcrumbs = ['course']
 
-    bad_at = {
-        1: 'Syntax',
-        2: 'File Management',
-        3: 'Databases'
-    }
-
     def get(self, request, id, *args, **kwargs):
         user = request.user
 
@@ -100,8 +94,7 @@ class CourseTestPageView(LoginRequiredMixin, TemplateView):
 
         context = {
             'form': form,
-            'questionnaire': quest,
-
+            'questionnaire': quest
         }
 
         return render(request, self.template_name, context)

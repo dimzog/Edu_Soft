@@ -31,13 +31,13 @@ class FaqPageView(TemplateView):
     template_name = 'faq.html'
     breadcrumbs = ['faq']
 
-
     def get(self, request, *args, **kwargs):
         user = request.user
         faqs = FrequentlyAskedQuestion.objects.all()
 
         context = {
-            'faqs': faqs
+            'faqs': faqs,
+            'breadcrumbs': self.breadcrumbs
         }
 
         return render(request, self.template_name, context)

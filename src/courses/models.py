@@ -8,6 +8,8 @@ from django.utils.safestring import mark_safe
 
 
 class Chapter(models.Model):
+    id = models.PositiveIntegerField(primary_key=True)
+
     title = models.CharField(max_length=100, null=False)
     image = models.ImageField(default='chapter_default.png', upload_to='chapter_pics')
     description = models.CharField(max_length=100, null=True, blank=True,
@@ -44,6 +46,8 @@ class StatisticsPerCategory(models.Model):
 
 
 class Questionnaire(models.Model):
+    id = models.PositiveIntegerField(primary_key=True)
+
     name = models.CharField(max_length=100, null=False)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='questionnaire', on_delete=models.CASCADE)
 
@@ -79,7 +83,7 @@ class Statistics(models.Model):
     answers_total = models.PositiveIntegerField(default=0)
     answers_correct = models.PositiveIntegerField(default=0)
     answers_wrong = models.PositiveIntegerField(default=0)
-    success_rate = models.FloatField(default=100.0)
+    success_rate = models.FloatField(default=0.0)
 
     passed = models.BooleanField(default=False)
 

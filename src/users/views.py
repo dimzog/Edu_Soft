@@ -25,7 +25,6 @@ class ProfilePageView(LoginRequiredMixin, TemplateView):
     template_name = 'users/profile.html'
     breadcrumbs = ['profile']
 
-
     def get(self, request, *args, **kwargs):
         user = request.user
         stats = Statistics.objects.filter(user=user)
