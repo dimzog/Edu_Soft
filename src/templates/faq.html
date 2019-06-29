@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+{% load static %}
+
+<div class="container">
+
+    <h2 class="center-align">Frequently Asked Questions</h2>
+    <div>
+        <p class="center-align">Consider reading the following answered questions before submitting a contact ticket!</p>
+    </div>
+
+    {% for faq in faqs %}
+        <div class="row">
+            <h4>{{ faq.title }}</h4>
+        </div>
+        <div class="row">
+            <p>{{ faq.body }}</p>
+        </div>
+
+        <div class="divider"></div>
+    {% endfor %}
+
+</div>
+{% endblock %}
+
+
