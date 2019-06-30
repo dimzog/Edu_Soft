@@ -46,6 +46,12 @@ class CourseChapterPageView(LoginRequiredMixin, TemplateView):
         except:
             raise Http404('Chapter does not exist')
 
+        if chapter_id is None:
+            chapter_id = user.profile.chapter_studying
+
+        if chapter_id > user.profile.chapter_studying:
+            return redirect(f'/course/chapter/{user.profile.chapter_studying}/')
+
         try:
             quest = Questionnaire.objects.get(id=chapter_id)
             stats, created = Statistics.objects.get_or_create(user=user, questionnaire=quest)
