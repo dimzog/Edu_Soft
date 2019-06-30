@@ -125,7 +125,6 @@ class CourseTestPageView(LoginRequiredMixin, TemplateView):
                     stats_cat.answers_correct += 1
 
                 else:
-                    current_correct_answers += 1
                     stats_cat.answers_wrong += 1
 
                 stats_cat.answers_total += 1
@@ -140,7 +139,7 @@ class CourseTestPageView(LoginRequiredMixin, TemplateView):
 
             stats.answers_correct += current_correct_answers
             stats.answers_wrong += limit - current_correct_answers
-            stats.answers_total += current_correct_answers
+            stats.answers_total += limit
 
             stats.times_taken += 1
             stats.success_rate = round(stats.answers_correct / stats.answers_total, 2) * 100
