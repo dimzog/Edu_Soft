@@ -14,8 +14,6 @@ class Profile(models.Model):
     chapter_studying = models.PositiveIntegerField(default=1)
     test_taking = models.PositiveIntegerField(default=1)
 
-    bad_at = models.CharField(max_length=50, default='')
-
     def __str__(self):
         return f'{self.user.username} Profile'
 
